@@ -30,11 +30,20 @@ $(document).ready(function(){
 		$(this).addClass("user");
 		turn++;
 		if (turn<8){
-		computerResponse();
+			setTimeout(function(){
+					computerResponse();
+					}, 1500);
+		
 	}
 		findWinner();
 		if (turn==9){
-		draw();
+			var status=$("h2").html();
+			if (status!=="Player has won!"&&status!=="Computer has won!"){
+				$("h2").html("It's a draw!");
+					setTimeout(function(){
+						window.location.reload();
+					}, 3000);
+			}
 		}
 	}		
 		
@@ -46,8 +55,10 @@ $(document).ready(function(){
 				draw++;
 				console.log("draw: "+draw);
 				if (draw==options.length){
-					alert("It's a draw");
-					window.location.reload();
+					$("h2").html("It's a draw!");
+					setTimeout(function(){
+						window.location.reload();
+					}, 3000);
 				}
 				
 			}});	
@@ -85,17 +96,20 @@ $(document).ready(function(){
 			if($(this).hasClass("user")){
 				topVictory++;
 				if (topVictory==3){
-					alert("Player has won!");
-					window.location.reload();
-				}
-				
+					$("h2").html("Player has won!");
+					setTimeout(function(){
+						window.location.reload();
+					}, 3000);
+				}				
 			}}); 
 		$("#top-left, #top-center, #top-right").each(function(){
 			if($(this).hasClass("computer")){
 				topVictoryComp++;
 				if (topVictoryComp==3){
-					alert("Computer has won!");
-					window.location.reload();
+					$("h2").html("Computer has won!");
+					setTimeout(function(){
+						window.location.reload();
+					}, 3000);
 				}
 				
 			}});
@@ -103,24 +117,30 @@ $(document).ready(function(){
 			if($(this).hasClass("user")){
 				centerVictory++;
 				if (centerVictory==3){
-					alert("Player has won!");
-					window.location.reload();
+					$("h2").html("Player has won!");
+					setTimeout(function(){
+						window.location.reload();
+					}, 3000);
 				}
 			}});
 		$("#center-left, #center-center, #center-right").each(function(){		
 			if($(this).hasClass("computer")){
 				centerVictoryComp++;
 				if (centerVictoryComp==3){
-					alert("Computer has won!");
-					window.location.reload();
+					$("h2").html("Computer has won!");
+					setTimeout(function(){
+						window.location.reload();
+					}, 3000);
 				}
 			}});
 		$("#bottom-left, #bottom-center, #bottom-right").each(function(){
 			if($(this).hasClass("user")){
 				bottomVictory++;
 				if (bottomVictory==3){
-					alert("Player has won!");
-					window.location.reload();
+					$("h2").html("Player has won!");
+					setTimeout(function(){
+						window.location.reload();
+					}, 3000);
 				}
 				
 			}});	
@@ -128,19 +148,22 @@ $(document).ready(function(){
 			if($(this).hasClass("computer")){
 				bottomVictoryComp++;
 				if (bottomVictoryComp==3){
-					alert("Computer has won!");
-					window.location.reload();
+					$("h2").html("Computer has won!");
+					setTimeout(function(){
+						window.location.reload();
+					}, 3000);
 				}
 				
 			}});
 		$("#top-left, #center-left, #bottom-left").each(function(){
 			if($(this).hasClass("user")){
 				
-				leftVerticalVictory++;
-				
+				leftVerticalVictory++;				
 				if (leftVerticalVictory==3){
-					alert("Player has won!");
-					window.location.reload();
+					$("h2").html("Player has won!");
+					setTimeout(function(){
+						window.location.reload();
+					}, 3000);
 				}
 				
 			}});
@@ -148,8 +171,10 @@ $(document).ready(function(){
 				if($(this).hasClass("computer")){
 						leftVerticalVictoryComp++;
 						if (leftVerticalVictoryComp==3){
-							alert("Computer has won!");
-							window.location.reload();
+						$("h2").html("Computer has won!");
+						setTimeout(function(){
+						window.location.reload();
+					}, 3000);
 						}
 						
 					}});		
@@ -158,24 +183,30 @@ $(document).ready(function(){
 			if($(this).hasClass("user")){
 				centerVerticalVictory++;
 				if (centerVerticalVictory==3){
-					alert("Player has won!");
-					window.location.reload();
+					$("h2").html("Player has won!");
+					setTimeout(function(){
+						window.location.reload();
+					}, 3000);
 				}				
 			}});
 		$("#center-top, #center-center, #center-bottom").each(function(){
 			if($(this).hasClass("computer")){
 				centerVerticalVictoryComp++;
 				if (centerVerticalVictoryComp==3){
-					alert("Computer has won!");
-					window.location.reload();
+					$("h2").html("Computer has won!");
+					setTimeout(function(){
+						window.location.reload();
+					}, 3000);
 				}				
 			}});		
 		$("#top-right, #center-right, #bottom-right").each(function(){
 			if($(this).hasClass("user")){
 				rightVerticalVictory++;
 				if (rightVerticalVictory==3){
-					alert("Player has won!");
-					window.location.reload();
+					$("h2").html("Player has won!");
+					setTimeout(function(){
+						window.location.reload();
+					}, 5000);
 				}
 				
 			}});
@@ -183,8 +214,10 @@ $(document).ready(function(){
 			if($(this).hasClass("computer")){
 				rightVerticalVictoryComp++;
 				if (rightVerticalVictoryComp==3){
-					alert("Computer has won!");
-					window.location.reload();
+					$("h2").html("Computer has won!");
+					setTimeout(function(){
+						window.location.reload();
+					}, 3000);
 				}				
 			}});
 				
@@ -192,38 +225,44 @@ $(document).ready(function(){
 			if($(this).hasClass("user")){
 				diagonalLeftRight++;
 				if (diagonalLeftRight==3){
-					alert("Player has won!");
-					window.location.reload();
+					$("h2").html("Player has won!");
+					setTimeout(function(){
+						window.location.reload();
+					}, 3000);
 				}				
 			}});
 		$("#top-left, #center-center, #bottom-right").each(function(){
 			if($(this).hasClass("computer")){
 				diagonalLeftRightComp++;
 				if (diagonalLeftRightComp==3){
-					alert("Computer has won!");
-					window.location.reload();
+					$("h2").html("Computer has won!");
+					setTimeout(function(){
+						window.location.reload();
+					}, 3000);
 				}				
-			}});
-			
+			}});			
 
 		$("#top-right, #center-center, #bottom-left").each(function(){
 			if($(this).hasClass("user")){
 				diagonalRightLeft++;
 				if (diagonalRightLeft==3){
-					alert("Player has won!");
-					window.location.reload();
+					$("h2").html("Player has won!");
+					setTimeout(function(){
+						window.location.reload();
+					}, 3000);
 				}				
 			}});
 		$("#top-right, #center-center, #bottom-left").each(function(){
 			if($(this).hasClass("computer")){
 				diagonalRightLeftComp++;
 				if (diagonalRightLeftComp==3){
-					alert("Computer has won!");
-					window.location.reload();
+					$("h2").html("Computer has won!");
+					setTimeout(function(){
+						window.location.reload();
+					}, 3000);
 				}				
 			}});
 
 	}
-
 
 });
