@@ -1,8 +1,11 @@
 $(document).ready(function(){
+	/*centerVerticalVictory doesn't work (for player or computer). Every other win possibility
+	works for player. Haven't tested on computer*/
 	var turn=0;
 	var userChoice;
 	var computerChoice;
 	var gameReady=false;
+	var gameOver=false;
 	$("#X").click(function(){
 		userChoice="X";
 		computerChoice="O";
@@ -10,7 +13,7 @@ $(document).ready(function(){
 		$("#O").hide();
 		$("h2").html("Play!");
 		gameReady=true;
-	});
+		});
 	$("#O").click(function(){
 		userChoice="O";
 		computerChoice="X";
@@ -18,6 +21,7 @@ $(document).ready(function(){
 		$("#O").hide();
 		$("h2").html("Play!");
 		gameReady=true;
+
 	})
 	var options=["top-left","top-center","top-right",
 				"center-left","center-center","center-right",
@@ -30,9 +34,9 @@ $(document).ready(function(){
 		$(this).addClass("user");
 		turn++;
 		if (turn<8){
-			setTimeout(function(){
+			//setTimeout(function(){
 					computerResponse();
-					}, 1500);
+					//}, 750);
 		
 	}
 		findWinner();
@@ -48,31 +52,16 @@ $(document).ready(function(){
 	}		
 		
 	});
-	function draw(){
-		var draw=0;
-		$("#top-left, #top-center, #top-right, #center-left, #center-center, #center-right, #bottom-left, #bottom-center, #bottom-right").each(function(){
-			if($(this).hasClass("unclickable")){
-				draw++;
-				console.log("draw: "+draw);
-				if (draw==options.length){
-					$("h2").html("It's a draw!");
-					setTimeout(function(){
-						window.location.reload();
-					}, 3000);
-				}
-				
-			}});	
-	}
+	
 	function computerResponse(){
 		var compSel=Math.ceil(Math.random() * (9)-1);
-
 		while($("#"+(options[compSel])).hasClass("unclickable")){
 			compSel=Math.ceil(Math.random() * (9)-1);
 		}
-		console.log(compSel);
 		$("#"+(options[compSel])).html(computerChoice);
 		$("#"+(options[compSel])).addClass("unclickable").addClass("computer");
 		turn++;
+	
 	}
 	function findWinner(){
 		var topVictory=0;
@@ -96,6 +85,7 @@ $(document).ready(function(){
 			if($(this).hasClass("user")){
 				topVictory++;
 				if (topVictory==3){
+					gameOver=true;
 					$("h2").html("Player has won!");
 					setTimeout(function(){
 						window.location.reload();
@@ -106,6 +96,7 @@ $(document).ready(function(){
 			if($(this).hasClass("computer")){
 				topVictoryComp++;
 				if (topVictoryComp==3){
+					gameOver=true;
 					$("h2").html("Computer has won!");
 					setTimeout(function(){
 						window.location.reload();
@@ -117,6 +108,7 @@ $(document).ready(function(){
 			if($(this).hasClass("user")){
 				centerVictory++;
 				if (centerVictory==3){
+					gameOver=true;
 					$("h2").html("Player has won!");
 					setTimeout(function(){
 						window.location.reload();
@@ -127,6 +119,7 @@ $(document).ready(function(){
 			if($(this).hasClass("computer")){
 				centerVictoryComp++;
 				if (centerVictoryComp==3){
+					gameOver=true;
 					$("h2").html("Computer has won!");
 					setTimeout(function(){
 						window.location.reload();
@@ -137,6 +130,7 @@ $(document).ready(function(){
 			if($(this).hasClass("user")){
 				bottomVictory++;
 				if (bottomVictory==3){
+					gameOver=true;
 					$("h2").html("Player has won!");
 					setTimeout(function(){
 						window.location.reload();
@@ -148,6 +142,7 @@ $(document).ready(function(){
 			if($(this).hasClass("computer")){
 				bottomVictoryComp++;
 				if (bottomVictoryComp==3){
+					gameOver=true;
 					$("h2").html("Computer has won!");
 					setTimeout(function(){
 						window.location.reload();
@@ -156,10 +151,10 @@ $(document).ready(function(){
 				
 			}});
 		$("#top-left, #center-left, #bottom-left").each(function(){
-			if($(this).hasClass("user")){
-				
+			if($(this).hasClass("user")){				
 				leftVerticalVictory++;				
 				if (leftVerticalVictory==3){
+					gameOver=true;
 					$("h2").html("Player has won!");
 					setTimeout(function(){
 						window.location.reload();
@@ -171,6 +166,7 @@ $(document).ready(function(){
 				if($(this).hasClass("computer")){
 						leftVerticalVictoryComp++;
 						if (leftVerticalVictoryComp==3){
+						gameOver=true;
 						$("h2").html("Computer has won!");
 						setTimeout(function(){
 						window.location.reload();
@@ -179,20 +175,22 @@ $(document).ready(function(){
 						
 					}});		
 
-		$("#center-top, #center-center, #center-bottom").each(function(){
+		$("#top-center, #center-center, #bottom-center").each(function(){
 			if($(this).hasClass("user")){
 				centerVerticalVictory++;
 				if (centerVerticalVictory==3){
+					gameOver=true;
 					$("h2").html("Player has won!");
 					setTimeout(function(){
 						window.location.reload();
 					}, 3000);
 				}				
 			}});
-		$("#center-top, #center-center, #center-bottom").each(function(){
+		$("#top-center, #center-center, #bottom-center").each(function(){
 			if($(this).hasClass("computer")){
 				centerVerticalVictoryComp++;
 				if (centerVerticalVictoryComp==3){
+					gameOver=true;
 					$("h2").html("Computer has won!");
 					setTimeout(function(){
 						window.location.reload();
@@ -203,10 +201,11 @@ $(document).ready(function(){
 			if($(this).hasClass("user")){
 				rightVerticalVictory++;
 				if (rightVerticalVictory==3){
+					gameOver=true;
 					$("h2").html("Player has won!");
 					setTimeout(function(){
 						window.location.reload();
-					}, 5000);
+					}, 3000);
 				}
 				
 			}});
@@ -214,6 +213,7 @@ $(document).ready(function(){
 			if($(this).hasClass("computer")){
 				rightVerticalVictoryComp++;
 				if (rightVerticalVictoryComp==3){
+					gameOver=true;
 					$("h2").html("Computer has won!");
 					setTimeout(function(){
 						window.location.reload();
@@ -225,6 +225,7 @@ $(document).ready(function(){
 			if($(this).hasClass("user")){
 				diagonalLeftRight++;
 				if (diagonalLeftRight==3){
+					gameOver=true;
 					$("h2").html("Player has won!");
 					setTimeout(function(){
 						window.location.reload();
@@ -235,6 +236,7 @@ $(document).ready(function(){
 			if($(this).hasClass("computer")){
 				diagonalLeftRightComp++;
 				if (diagonalLeftRightComp==3){
+					gameOver=true;
 					$("h2").html("Computer has won!");
 					setTimeout(function(){
 						window.location.reload();
@@ -246,6 +248,7 @@ $(document).ready(function(){
 			if($(this).hasClass("user")){
 				diagonalRightLeft++;
 				if (diagonalRightLeft==3){
+					gameOver=true;
 					$("h2").html("Player has won!");
 					setTimeout(function(){
 						window.location.reload();
@@ -256,6 +259,7 @@ $(document).ready(function(){
 			if($(this).hasClass("computer")){
 				diagonalRightLeftComp++;
 				if (diagonalRightLeftComp==3){
+					gameOver=true;
 					$("h2").html("Computer has won!");
 					setTimeout(function(){
 						window.location.reload();
