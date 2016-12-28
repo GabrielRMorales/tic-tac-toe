@@ -1,26 +1,25 @@
 $(document).ready(function(){
-	/*centerVerticalVictory doesn't work (for player or computer). Every other win possibility
-	works for player. Haven't tested on computer*/
 	var turn=0;
 	var userChoice;
 	var computerChoice;
 	var gameReady=false;
 	var gameOver=false;
+	function clickResponse(){
+		$("#X").hide();
+		$("#O").hide();
+		$("h2").html("Play!");		
+		$("h2").css("margin-bottom", "43px");
+		gameReady=true;
+	}
 	$("#X").click(function(){
 		userChoice="X";
 		computerChoice="O";
-		$("#X").hide();
-		$("#O").hide();
-		$("h2").html("Play!");
-		gameReady=true;
+		clickResponse();
 		});
 	$("#O").click(function(){
 		userChoice="O";
 		computerChoice="X";
-		$("#X").hide();
-		$("#O").hide();
-		$("h2").html("Play!");
-		gameReady=true;
+		clickResponse();
 
 	})
 	var options=["top-left","top-center","top-right",
@@ -34,16 +33,13 @@ $(document).ready(function(){
 		$(this).addClass("user");
 		turn++;
 		if (turn<8){
-			//setTimeout(function(){
-					computerResponse();
-					//}, 750);
-		
+					computerResponse();	
 	}
 		findWinner();
 		if (turn==9){
 			var status=$("h2").html();
 			if (status!=="Player has won!"&&status!=="Computer has won!"){
-				$("h2").html("It's a draw!");
+				$("h2").html("Cat's Game!");
 					setTimeout(function(){
 						window.location.reload();
 					}, 3000);
@@ -64,209 +60,40 @@ $(document).ready(function(){
 	
 	}
 	function findWinner(){
-		var topVictory=0;
-		var centerVictory=0;
-		var bottomVictory=0;
-		var leftVerticalVictory=0;
-		var centerVerticalVictory=0;
-		var rightVerticalVictory=0;
-		var diagonalLeftRight=0;
-		var diagonalRightLeft=0;
-		var topVictoryComp=0;
-		var centerVictoryComp=0;
-		var bottomVictoryComp=0;
-		var leftVerticalVictoryComp=0;
-		var centerVerticalVictoryComp=0;
-		var rightVerticalVictoryComp=0;
-		var diagonalLeftRightComp=0;
-		var diagonalRightLeftComp=0;
+		var playerArray=[0,0,0,0,0,0,0,0];
+		var compArray=[0,0,0,0,0,0,0,0];
+		var topVictory="#top-left, #top-center, #top-right";
+		var centerVictory="#center-left, #center-center, #center-right";
+		var bottomVictory="#bottom-left, #bottom-center, #bottom-right";
+		var leftVerticalVictory="#top-left, #center-left, #bottom-left";
+		var centerVerticalVictory="#top-center, #center-center, #bottom-center";
+		var rightVerticalVictory="#top-right, #center-right, #bottom-right";
+		var diagonalLeftRight="#top-left, #center-center, #bottom-right";
+		var diagonalRightLeft="#top-right, #center-center, #bottom-left";
+		var vicArr=[topVictory,centerVictory,bottomVictory,leftVerticalVictory,centerVerticalVictory,
+		rightVerticalVictory,diagonalLeftRight,diagonalRightLeft];
 		
-		$("#top-left, #top-center, #top-right").each(function(){
-			if($(this).hasClass("user")){
-				topVictory++;
-				if (topVictory==3){
+		function winner(className, controller, arraySlot, condition){
+		$(condition).each(function(){
+			
+			if($(this).hasClass(className)){
+				arraySlot++;
+				if (arraySlot==3){
 					gameOver=true;
-					$("h2").html("Player has won!");
+					$("h2").html(controller+" has won!");
 					setTimeout(function(){
 						window.location.reload();
 					}, 3000);
 				}				
 			}}); 
-		$("#top-left, #top-center, #top-right").each(function(){
-			if($(this).hasClass("computer")){
-				topVictoryComp++;
-				if (topVictoryComp==3){
-					gameOver=true;
-					$("h2").html("Computer has won!");
-					setTimeout(function(){
-						window.location.reload();
-					}, 3000);
-				}
-				
-			}});
-		$("#center-left, #center-center, #center-right").each(function(){		
-			if($(this).hasClass("user")){
-				centerVictory++;
-				if (centerVictory==3){
-					gameOver=true;
-					$("h2").html("Player has won!");
-					setTimeout(function(){
-						window.location.reload();
-					}, 3000);
-				}
-			}});
-		$("#center-left, #center-center, #center-right").each(function(){		
-			if($(this).hasClass("computer")){
-				centerVictoryComp++;
-				if (centerVictoryComp==3){
-					gameOver=true;
-					$("h2").html("Computer has won!");
-					setTimeout(function(){
-						window.location.reload();
-					}, 3000);
-				}
-			}});
-		$("#bottom-left, #bottom-center, #bottom-right").each(function(){
-			if($(this).hasClass("user")){
-				bottomVictory++;
-				if (bottomVictory==3){
-					gameOver=true;
-					$("h2").html("Player has won!");
-					setTimeout(function(){
-						window.location.reload();
-					}, 3000);
-				}
-				
-			}});	
-		$("#bottom-left, #bottom-center, #bottom-right").each(function(){
-			if($(this).hasClass("computer")){
-				bottomVictoryComp++;
-				if (bottomVictoryComp==3){
-					gameOver=true;
-					$("h2").html("Computer has won!");
-					setTimeout(function(){
-						window.location.reload();
-					}, 3000);
-				}
-				
-			}});
-		$("#top-left, #center-left, #bottom-left").each(function(){
-			if($(this).hasClass("user")){				
-				leftVerticalVictory++;				
-				if (leftVerticalVictory==3){
-					gameOver=true;
-					$("h2").html("Player has won!");
-					setTimeout(function(){
-						window.location.reload();
-					}, 3000);
-				}
-				
-			}});
-		$("#top-left, #center-left, bottom-left").each(function(){
-				if($(this).hasClass("computer")){
-						leftVerticalVictoryComp++;
-						if (leftVerticalVictoryComp==3){
-						gameOver=true;
-						$("h2").html("Computer has won!");
-						setTimeout(function(){
-						window.location.reload();
-					}, 3000);
-						}
-						
-					}});		
-
-		$("#top-center, #center-center, #bottom-center").each(function(){
-			if($(this).hasClass("user")){
-				centerVerticalVictory++;
-				if (centerVerticalVictory==3){
-					gameOver=true;
-					$("h2").html("Player has won!");
-					setTimeout(function(){
-						window.location.reload();
-					}, 3000);
-				}				
-			}});
-		$("#top-center, #center-center, #bottom-center").each(function(){
-			if($(this).hasClass("computer")){
-				centerVerticalVictoryComp++;
-				if (centerVerticalVictoryComp==3){
-					gameOver=true;
-					$("h2").html("Computer has won!");
-					setTimeout(function(){
-						window.location.reload();
-					}, 3000);
-				}				
-			}});		
-		$("#top-right, #center-right, #bottom-right").each(function(){
-			if($(this).hasClass("user")){
-				rightVerticalVictory++;
-				if (rightVerticalVictory==3){
-					gameOver=true;
-					$("h2").html("Player has won!");
-					setTimeout(function(){
-						window.location.reload();
-					}, 3000);
-				}
-				
-			}});
-		$("#top-right, #center-right, #bottom-right").each(function(){
-			if($(this).hasClass("computer")){
-				rightVerticalVictoryComp++;
-				if (rightVerticalVictoryComp==3){
-					gameOver=true;
-					$("h2").html("Computer has won!");
-					setTimeout(function(){
-						window.location.reload();
-					}, 3000);
-				}				
-			}});
-				
-		$("#top-left, #center-center, #bottom-right").each(function(){
-			if($(this).hasClass("user")){
-				diagonalLeftRight++;
-				if (diagonalLeftRight==3){
-					gameOver=true;
-					$("h2").html("Player has won!");
-					setTimeout(function(){
-						window.location.reload();
-					}, 3000);
-				}				
-			}});
-		$("#top-left, #center-center, #bottom-right").each(function(){
-			if($(this).hasClass("computer")){
-				diagonalLeftRightComp++;
-				if (diagonalLeftRightComp==3){
-					gameOver=true;
-					$("h2").html("Computer has won!");
-					setTimeout(function(){
-						window.location.reload();
-					}, 3000);
-				}				
-			}});			
-
-		$("#top-right, #center-center, #bottom-left").each(function(){
-			if($(this).hasClass("user")){
-				diagonalRightLeft++;
-				if (diagonalRightLeft==3){
-					gameOver=true;
-					$("h2").html("Player has won!");
-					setTimeout(function(){
-						window.location.reload();
-					}, 3000);
-				}				
-			}});
-		$("#top-right, #center-center, #bottom-left").each(function(){
-			if($(this).hasClass("computer")){
-				diagonalRightLeftComp++;
-				if (diagonalRightLeftComp==3){
-					gameOver=true;
-					$("h2").html("Computer has won!");
-					setTimeout(function(){
-						window.location.reload();
-					}, 3000);
-				}				
-			}});
-
+		}
+		
+		for (var i=0;i<vicArr.length;i++){
+			var cond=vicArr[i];
+			winner("user", "Player",playerArray[i], cond);			
+			winner("computer", "Computer",compArray[i], cond);
+			
+		}
 	}
 
 });
