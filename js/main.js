@@ -32,7 +32,8 @@ $(document).ready(function(){
 		$(this).addClass("unclickable");
 		$(this).addClass("user");
 		turn++;
-		if (turn<8){
+		findWinner();
+		if (turn<8&&gameOver==false){
 					computerResponse();	
 	}
 		findWinner();
@@ -56,8 +57,21 @@ $(document).ready(function(){
 		}
 		$("#"+(options[compSel])).html(computerChoice);
 		$("#"+(options[compSel])).addClass("unclickable").addClass("computer");
-		turn++;
-	
+		turn++;	
+	}
+	function hardComputerResponse(){
+		//turn 2
+
+		//turn 4
+
+		//turn 6
+
+		//turn 8
+
+
+
+
+
 	}
 	function findWinner(){
 		var playerArray=[0,0,0,0,0,0,0,0];
@@ -72,7 +86,7 @@ $(document).ready(function(){
 		var diagonalRightLeft="#top-right, #center-center, #bottom-left";
 		var vicArr=[topVictory,centerVictory,bottomVictory,leftVerticalVictory,centerVerticalVictory,
 		rightVerticalVictory,diagonalLeftRight,diagonalRightLeft];
-		
+
 		function winner(className, controller, arraySlot, condition){
 		$(condition).each(function(){
 			
@@ -86,14 +100,11 @@ $(document).ready(function(){
 					}, 3000);
 				}				
 			}}); 
-		}
-		
+		}		
 		for (var i=0;i<vicArr.length;i++){
 			var cond=vicArr[i];
-			winner("user", "Player",playerArray[i], cond);			
-			winner("computer", "Computer",compArray[i], cond);
-			
+			winner("computer", "Computer",compArray[i], cond);	
+			winner("user", "Player",playerArray[i], cond);		
 		}
 	}
-
 });
