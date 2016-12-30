@@ -99,59 +99,36 @@ if (turn==3||turn==5||turn==7){
 				computerResponse();
 		}
 		}
+	
 	}
 }
+
 	var arr=[[0,1,2],[3,4,5],[6,7,8]];
-	for(var i=0;i<1;i++){
-		for (var j=0; j<3; j++) {
-    
-    turnThreeFive(arr[i][0],arr[i][1],arr[i][2],"computer");
-    arr[i].slice(0, 3).join(",");
-    arr[i].push(arr[i].shift());
+	var vertArr=[[0,3,6],[1,4,7],[2,5,8]];
+	var diagonalArr=[[0,4,8],[6,4,2]];
+	var check=function(array,playerID){
+		for(var i=0;i<array.length;i++){
+		for (var j=0; j<3; j++) {    
+    turnThreeFive(array[i][0],array[i][1],array[i][2],playerID);
+    array[i].slice(0, 3).join(",");
+    array[i].push(array[i].shift());    
 		}
 	}
-	for(var i=0;i<1;i++){
-		for (var j=0; j<3; j++) {
-    
-    turnThreeFive(arr[i][0],arr[i][1],arr[i][2],"user");
-    arr[i].slice(0, 3).join(",");
-    arr[i].push(arr[i].shift());
-		}
-	}		
-
-
-		/*turnThreeFive(3,4,5,arr[i]);
-		turnThreeFive(5,4,3,arr[i]);
-		turnThreeFive(5,4,3,arr[i]);
-
-		turnThreeFive(6,7,8,arr[i]);
-		turnThreeFive(8,7,6,arr[i]);
-		turnThreeFive(7,8,8,arr[i]);
-
-		turnThreeFive(0,3,6,arr[i]);
-		turnThreeFive(6,3,0,arr[i]);
-		turnThreeFive(1,4,7,arr[i]);
-		turnThreeFive(7,4,1,arr[i]);
-		turnThreeFive(2,5,8,arr[i]);
-		turnThreeFive(8,5,2,arr[i]);
-		turnThreeFive(0,4,8,arr[i]);
-		turnThreeFive(8,4,0,arr[i]);
-		turnThreeFive(6,4,2,arr[i]);
-		turnThreeFive(2,4,6,arr[i]);
-
-		turnThreeFive(0,1,2,"user");
-		turnThreeFive(1,2,0,arr[i]);
-		turnThreeFive(2,0,1,arr[i]);*/
+	};
+	check(arr, "computer");
+	check(vertArr, "computer");
+	check(diagonalArr, "computer");
+	check(arr, "user");
+	check(vertArr, "user");
+	check(diagonalArr, "user");
 
 		//turn 5,6
 
 		//turn 7,8
 
-
-
-
-
 	}
+
+
 	function findWinner(){
 		var playerArray=[0,0,0,0,0,0,0,0];
 		var compArray=[0,0,0,0,0,0,0,0];
