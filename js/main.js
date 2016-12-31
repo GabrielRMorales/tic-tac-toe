@@ -27,7 +27,7 @@ $(document).ready(function(){
 				"bottom-left","bottom-center","bottom-right"];
 	//EASY VERSION-uses random choices
 	$(".square").click(function(){
-		if (($(this).hasClass("unclickable")==false)&&gameReady==true){
+		if (($(this).hasClass("unclickable")==false)&&gameReady==true&&gameOver==false){
 		$(this).html(userChoice);
 		$(this).addClass("unclickable");
 		$(this).addClass("user");
@@ -62,16 +62,17 @@ $(document).ready(function(){
 	}
 	
 	function hardComputerResponse(){
+	var arr=[[0,1,2],[3,4,5],[6,7,8]];
+	var vertArr=[[0,3,6],[1,4,7],[2,5,8]];
+	var diagonalArr=[[0,4,8],[6,4,2]];
 		//turn 1,2
 		//if X plays corner, O plays center
-			if (turn==1){
-		$("#top-left, #top-center, #top-right, #center-left, #center-right, #bottom-left, #bottom-center,#bottom-right").each(function(){			
-			if($(this).hasClass("user")){
-				$("#center-center").html(computerChoice).addClass("unclickable").addClass("computer");;
-				turn++;
-			}
-		}
-);
+		if (turn==1){
+		$("#top-left, #top-center, #top-right, #center-left, #center-right, #bottom-left, #bottom-center, #bottom-right").each(function(){	if($(this).hasClass("user")){
+				$("#center-center").html(computerChoice).addClass("unclickable").addClass("computer");
+				turn++;}
+								});
+
 		var compSel=Math.ceil(Math.random() * (9)-1);
 		if ($("#center-center").hasClass("user")){
 			while([0,2,6,8].includes(compSel)==false){
@@ -88,40 +89,40 @@ $(document).ready(function(){
 		//first if comp has two in a row, do third
 		function turnThreeFive(num1,num2, num3, markerClass){
 if (turn==3||turn==5||turn==7){
-	if ($("#"+options[num1]).hasClass(markerClass)&&$("#"+options[num2]).hasClass(markerClass)){
-		console.log(options[num3]);
+	if ($("#"+options[num1]).hasClass(markerClass)&&$("#"+options[num2]).hasClass(markerClass)&&$("#"+options[num3]).hasClass("unclickable")==false){
+		console.log("target is "+ options[num3]);
 		if ($("#"+(options[num3])).hasClass("unclickable")==false){
 		$("#"+(options[num3])).html(computerChoice);
 		$("#"+(options[num3])).addClass("unclickable").addClass("computer");		
 		turn++;
-			}
-		else if ($("#"+(options[num3])).hasClass("unclickable")){
-				computerResponse();
+			}		
 		}
-		}
-	
 	}
 }
-
-	var arr=[[0,1,2],[3,4,5],[6,7,8]];
-	var vertArr=[[0,3,6],[1,4,7],[2,5,8]];
-	var diagonalArr=[[0,4,8],[6,4,2]];
-	var check=function(array,playerID){
+	
+var check=function(array,playerID){
 		for(var i=0;i<array.length;i++){
 		for (var j=0; j<3; j++) {    
     turnThreeFive(array[i][0],array[i][1],array[i][2],playerID);
+    //console.log(array[i][0]+" "+array[i][1]+" "+array[i][2]);
     array[i].slice(0, 3).join(",");
     array[i].push(array[i].shift());    
 		}
 	}
-	};
+};
+
+if (turn==3||turn==5||turn==7){
+	console.log("checking...");
 	check(arr, "computer");
 	check(vertArr, "computer");
 	check(diagonalArr, "computer");
 	check(arr, "user");
 	check(vertArr, "user");
 	check(diagonalArr, "user");
-
+	if (turn==3||turn==5||turn==7){
+		computerResponse();
+	}
+}
 		//turn 5,6
 
 		//turn 7,8
