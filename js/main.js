@@ -1,9 +1,6 @@
-$(document).ready(function(){
-	var turn=0;
-	var userChoice;
-	var computerChoice;
-	var gameReady=false;
-	var gameOver=false;
+$(document).ready(function(){	
+	var userChoice,computerChoice,
+  turn=0,gameReady=false,gameOver=false;
 	function clickResponse(){
 		$("#X").hide();
 		$("#O").hide();
@@ -68,9 +65,11 @@ $(document).ready(function(){
 		//turn 1,2
 		//if X plays corner, O plays center
 		if (turn==1){
-		$("#top-left, #top-center, #top-right, #center-left, #center-right, #bottom-left, #bottom-center, #bottom-right").each(function(){	if($(this).hasClass("user")){
+		$("#top-left, #top-center, #top-right, #center-left, #center-right, #bottom-left, #bottom-center, #bottom-right").each(function(){	
+			if($(this).hasClass("user")){
 				$("#center-center").html(computerChoice).addClass("unclickable").addClass("computer");
-				turn++;}
+				turn++;
+			}
 								});
 
 		var compSel=Math.ceil(Math.random() * (9)-1);
@@ -104,7 +103,6 @@ var check=function(array,playerID){
 		for(var i=0;i<array.length;i++){
 		for (var j=0; j<3; j++) {    
     turnThreeFive(array[i][0],array[i][1],array[i][2],playerID);
-    //console.log(array[i][0]+" "+array[i][1]+" "+array[i][2]);
     array[i].slice(0, 3).join(",");
     array[i].push(array[i].shift());    
 		}
