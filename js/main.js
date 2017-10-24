@@ -1,9 +1,5 @@
 $(document).ready(function(){
-	var turn=0;
-	var userChoice;
-	var computerChoice;
-	var gameReady=false;
-	var gameOver=false;
+	var turn=0, userChoice, computerChoice, gameReady=false, gameOver=false;
 	function clickResponse(){
 		$("#X").hide();
 		$("#O").hide();
@@ -104,7 +100,6 @@ var check=function(array,playerID){
 		for(var i=0;i<array.length;i++){
 		for (var j=0; j<3; j++) {    
     turnThreeFive(array[i][0],array[i][1],array[i][2],playerID);
-    //console.log(array[i][0]+" "+array[i][1]+" "+array[i][2]);
     array[i].slice(0, 3).join(",");
     array[i].push(array[i].shift());    
 		}
@@ -131,18 +126,18 @@ if (turn==3||turn==5||turn==7){
 
 
 	function findWinner(){
-		var playerArray=[0,0,0,0,0,0,0,0];
-		var compArray=[0,0,0,0,0,0,0,0];
-		var topVictory="#top-left, #top-center, #top-right";
-		var centerVictory="#center-left, #center-center, #center-right";
-		var bottomVictory="#bottom-left, #bottom-center, #bottom-right";
-		var leftVerticalVictory="#top-left, #center-left, #bottom-left";
-		var centerVerticalVictory="#top-center, #center-center, #bottom-center";
-		var rightVerticalVictory="#top-right, #center-right, #bottom-right";
-		var diagonalLeftRight="#top-left, #center-center, #bottom-right";
-		var diagonalRightLeft="#top-right, #center-center, #bottom-left";
-		var vicArr=[topVictory,centerVictory,bottomVictory,leftVerticalVictory,centerVerticalVictory,
-		rightVerticalVictory,diagonalLeftRight,diagonalRightLeft];
+		var playerArray=[0,0,0,0,0,0,0,0],
+            compArray=[0,0,0,0,0,0,0,0],
+            topVictory="#top-left, #top-center, #top-right",
+            centerVictory="#center-left, #center-center, #center-right",
+            bottomVictory="#bottom-left, #bottom-center, #bottom-right",
+            leftVerticalVictory="#top-left, #center-left, #bottom-left",
+            centerVerticalVictory="#top-center, #center-center, #bottom-center",
+            rightVerticalVictory="#top-right, #center-right, #bottom-right",
+            diagonalLeftRight="#top-left, #center-center, #bottom-right",
+            diagonalRightLeft="#top-right, #center-center, #bottom-left",
+            vicArr=[topVictory,centerVictory,bottomVictory,leftVerticalVictory,centerVerticalVictory,
+		    rightVerticalVictory,diagonalLeftRight,diagonalRightLeft];
 
 		function winner(className, controller, arraySlot, condition){
 		$(condition).each(function(){
