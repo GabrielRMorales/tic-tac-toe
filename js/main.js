@@ -69,16 +69,43 @@ const gameFlow=(()=>{
 	};
 
 	const isWinner=()=>{
+		//refactor this part with a for-loop 
 		var el1=document.getElementById("1").innerHTML;
 		var el2=document.getElementById("2").innerHTML;
 		var el3=document.getElementById("3").innerHTML;
+		var el4=document.getElementById("4").innerHTML;
+		var el5=document.getElementById("5").innerHTML;
+		var el6=document.getElementById("6").innerHTML;
+		var el7=document.getElementById("7").innerHTML;
+		var el8=document.getElementById("8").innerHTML;
+		var el9=document.getElementById("9").innerHTML;
 		//create winner check function
-		if (this.counter>3){
-			if (el1=="X" && el2=="X" && el3=="X"){
-				alert("VICTORY");
+		//refactor with SWITCH
+		if (this.counter>4){
+			if (el1==el2 && el2==el3){
+				alert("VICTORY for Player "+el1);
 			}
-
-
+			else if (el4==el5 && el5==el6){
+				alert("VICTORY for Player "+el4);
+			}
+			else if (el7==el8 && el8==el9){
+				alert("VICTORY for Player "+el7);
+			}
+			else if (el1==el4 && el4==el7){
+				alert("VICTORY for Player "+el1);
+			}
+			else if (el2==el5 && el5==el8){
+				alert("VICTORY for Player "+el2);
+			}	
+			else if (el3==el6 && el6==el9){
+				alert("VICTORY for Player "+el3);
+			}
+			else if (el1==el5 && el5==el9){
+				alert("VICTORY for Player "+el1);
+			}
+			else if (el3==el5 && el5==el7){
+				alert("VICTORY for Player "+el3);
+			}
 		}
 	};
 
