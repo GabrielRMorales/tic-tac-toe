@@ -1,5 +1,9 @@
 //use object.assign as needed
-
+const btn=document.getElementById("new-game");
+btn.addEventListener("click",function(){
+	window.location.reload();
+	
+});
 //board module
 const gameBoard=(()=>{
 
@@ -69,6 +73,7 @@ const gameFlow=(()=>{
 	};
 
 	const isWinner=()=>{
+
 		//refactor this part with a for-loop 
 		var el1=document.getElementById("1").innerHTML;
 		var el2=document.getElementById("2").innerHTML;
@@ -80,6 +85,7 @@ const gameFlow=(()=>{
 		var el8=document.getElementById("8").innerHTML;
 		var el9=document.getElementById("9").innerHTML;
 		//create winner check function
+		//ALSO this is very obviously flawed logic-will fix it later
 		//refactor with SWITCH
 		if (this.counter>4){
 			if (el1==el2 && el2==el3){
@@ -133,7 +139,7 @@ const Player=(symbol)=>{
 	}
 }
 
-const player1=Player("X");
-const player2=Player("O");
-gameFlow.start(player1, player2);
+	const player1=Player("X");
+	const player2=Player("O");
+	gameFlow.start(player1, player2);
 

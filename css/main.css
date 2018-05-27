@@ -5,7 +5,10 @@ h1 {
 	margin: 0 auto;
 	text-align: center;
 }
-
+#new-game {
+	margin-left: 45%;
+	margin-bottom: 2%;
+}
 #gameboard {
 	margin: 0 auto;
 	display:flex;
