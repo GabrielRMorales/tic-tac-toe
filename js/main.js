@@ -4,14 +4,13 @@ btn.addEventListener("click",function(){
 	window.location.reload();
 	
 });
+
 //board module
 const gameBoard=(()=>{
-
 
 	//render function
 	const render=()=>{
 		var board=gameBoard.board;
-		console.log(board);
 		for (let i=0;i<board.length;i++){
 			let space=document.getElementById(i+1);
 			space.innerHTML=board[i];
@@ -25,7 +24,6 @@ const gameBoard=(()=>{
 
 })();
 
-
 //gameFlow a module
 const gameFlow=(()=>{
 
@@ -35,7 +33,7 @@ const gameFlow=(()=>{
 
 	const increaseCounter=()=>{
 		this.counter++;
-		console.log(this.counter);
+		//console.log(this.counter);
 	};
 
 	setCounter();
@@ -73,45 +71,62 @@ const gameFlow=(()=>{
 	};
 
 	const isWinner=()=>{
-
-		//refactor this part with a for-loop 
-		var el1=document.getElementById("1").innerHTML;
-		var el2=document.getElementById("2").innerHTML;
-		var el3=document.getElementById("3").innerHTML;
-		var el4=document.getElementById("4").innerHTML;
-		var el5=document.getElementById("5").innerHTML;
-		var el6=document.getElementById("6").innerHTML;
-		var el7=document.getElementById("7").innerHTML;
-		var el8=document.getElementById("8").innerHTML;
-		var el9=document.getElementById("9").innerHTML;
-		//create winner check function
-		//ALSO this is very obviously flawed logic-will fix it later
-		//refactor with SWITCH
 		if (this.counter>4){
-			if (el1==el2 && el2==el3){
+			var elements=[];
+			//get the value of each element in an array
+			for (let i=1;i<10;i++){
+				let el=document.getElementById(i+"");
+				elements[i-1]=el.innerHTML;
+			}
+			console.log(elements)
+			//refactor with SWITCH
+			const allEqual = arr => arr.every( v => v === arr[0] );
+
+			const checkSymbols=arr=>{
+				if (allEqual(arr)) {
+					console.log("TRUE");
+					let updater=document.getElementById("message");
+					updater.innerHTML="VICTORY for Player" + arr[0];
+				}
+			}
+			
+			var winningPatterns=[elements.slice(0,3),
+			elements.slice(4,6),
+			elements.slice(7,9),
+			[elements[0], elements[3], elements[6]],
+			[elements[1], elements[4], elements[7]],
+			[elements[2], elements[5], elements[8]],
+			[elements[0], elements[4], elements[8]],
+			[elements[2], elements[4], elements[6]]
+			];
+
+			checkSymbols(winningPatterns);
+
+			/*if allEqual(elements.slice(0,3)){
 				alert("VICTORY for Player "+el1);
+
 			}
-			else if (el4==el5 && el5==el6){
-				alert("VICTORY for Player "+el4);
+			else if allEqual(elements.slice(4,6)){
+
 			}
-			else if (el7==el8 && el8==el9){
-				alert("VICTORY for Player "+el7);
+			else if allEqual(elements.slice(7,9)){
+
 			}
-			else if (el1==el4 && el4==el7){
-				alert("VICTORY for Player "+el1);
+			else if allEqual([elements[0], elements[3], elements[6]){
+
 			}
-			else if (el2==el5 && el5==el8){
-				alert("VICTORY for Player "+el2);
-			}	
-			else if (el3==el6 && el6==el9){
-				alert("VICTORY for Player "+el3);
+			else if allEqual([elements[1], elements[4], elements[7]){
+
 			}
-			else if (el1==el5 && el5==el9){
-				alert("VICTORY for Player "+el1);
+			else if allEqual([elements[2], elements[5], elements[8]){
+
 			}
-			else if (el3==el5 && el5==el7){
-				alert("VICTORY for Player "+el3);
+			else if allEqual([elements[0], elements[4], elements[8]){
+
 			}
+			else if allEqual([elements[2], elements[4], elements[6]){
+
+			}*/
 		}
 	};
 
@@ -139,7 +154,7 @@ const Player=(symbol)=>{
 	}
 }
 
-	const player1=Player("X");
-	const player2=Player("O");
-	gameFlow.start(player1, player2);
+const player1=Player("X");
+const player2=Player("O");
+gameFlow.start(player1, player2);
 
