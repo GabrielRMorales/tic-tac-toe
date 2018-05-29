@@ -50,7 +50,6 @@ const gameFlow=(()=>{
 						//refactor this as needed to be more modular
 						let listItemId=list[i].id;
 						gameLogic(playerA, playerB, listItemId,i);
-
 						//render
 						gameBoard.render();
 						//check if its a winning move
@@ -79,14 +78,15 @@ const gameFlow=(()=>{
 				elements[i-1]=el.innerHTML;
 			}
 			console.log(elements)
-			//refactor with SWITCH
-			const allEqual = arr => arr.every( v => v === arr[0] );
+			//refactor to add a cat's game
+			const allEqual = arr => arr.every( v => v === arr[0] && v!=="");
 
 			const checkSymbols=arr=>{
-				if (allEqual(arr)) {
-					console.log("TRUE");
-					let updater=document.getElementById("message");
-					updater.innerHTML="VICTORY for Player" + arr[0];
+				for (let i=0;i<arr.length;i++){
+					if (allEqual(arr[i])) {
+						let updater=document.getElementById("message");
+						updater.innerHTML="VICTORY for Player " + arr[i][0];
+					}
 				}
 			}
 			
@@ -97,36 +97,9 @@ const gameFlow=(()=>{
 			[elements[1], elements[4], elements[7]],
 			[elements[2], elements[5], elements[8]],
 			[elements[0], elements[4], elements[8]],
-			[elements[2], elements[4], elements[6]]
-			];
+			[elements[2], elements[4], elements[6]]			];
 
 			checkSymbols(winningPatterns);
-
-			/*if allEqual(elements.slice(0,3)){
-				alert("VICTORY for Player "+el1);
-
-			}
-			else if allEqual(elements.slice(4,6)){
-
-			}
-			else if allEqual(elements.slice(7,9)){
-
-			}
-			else if allEqual([elements[0], elements[3], elements[6]){
-
-			}
-			else if allEqual([elements[1], elements[4], elements[7]){
-
-			}
-			else if allEqual([elements[2], elements[5], elements[8]){
-
-			}
-			else if allEqual([elements[0], elements[4], elements[8]){
-
-			}
-			else if allEqual([elements[2], elements[4], elements[6]){
-
-			}*/
 		}
 	};
 
