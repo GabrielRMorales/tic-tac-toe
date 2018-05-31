@@ -1,14 +1,11 @@
-//use object.assign as needed
 const btn=document.getElementById("new-game");
 btn.addEventListener("click",function(){
 	window.location.reload();
 	
 });
 
-//board module
 const gameBoard=(()=>{
 
-	//render function
 	const render=()=>{
 		var board=gameBoard.board;
 		for (let i=0;i<board.length;i++){
@@ -24,68 +21,56 @@ const gameBoard=(()=>{
 
 })();
 
-//gameFlow a module
 const gameFlow=(()=>{
 
-	const setCounter=()=>{
-		this.counter=0;
-	}
+	const setCounter=()=>{this.counter=0;	}
 
-	const increaseCounter=()=>{
-		this.counter++;
-		//console.log(this.counter);
-	};
+	const increaseCounter=()=>{	this.counter++;	};
 
-	setCounter();
-
-	//set initial stuff-this could easily be refactored if this is all it does
 	const start=(playerA, playerB)=>{
-		
-		//set initial event timers
+	
 		const addClickListener =()=>{
 			var list=document.getElementsByClassName("space");
 				for (let i=0; i<list.length; i++){				
 					list[i].addEventListener("click",function(){
-
-						//refactor this as needed to be more modular
 						let listItemId=list[i].id;
 						gameLogic(playerA, playerB, listItemId,i);
-						//render
-						gameBoard.render();
-						//check if its a winning move
-						isWinner();
 						
 					});
 				}
 		}
+
+		setCounter();
 		addClickListener();
 	};
 
-	//running game Logic
 	const gameLogic=(playerA,playerB, id, index)=>{
 			setSpaceValue(id,index,playerA, playerB);
-			
 			increaseCounter();
-
+			gameBoard.render();
+			isWinner();
 	};
 
 	const isWinner=()=>{
+		var winner=false;
 		if (this.counter>4){
 			var elements=[];
-			//get the value of each element in an array
 			for (let i=1;i<10;i++){
 				let el=document.getElementById(i+"");
 				elements[i-1]=el.innerHTML;
 			}
-			console.log(elements)
-			//refactor to add a cat's game
 			const allEqual = arr => arr.every( v => v === arr[0] && v!=="");
 
 			const checkSymbols=arr=>{
 				for (let i=0;i<arr.length;i++){
+					var updater=document.getElementById("message");
 					if (allEqual(arr[i])) {
-						let updater=document.getElementById("message");
+						
+						winner=true;
 						updater.innerHTML="VICTORY for Player " + arr[i][0];
+					}
+					else if(winner===false && this.counter==9){
+						updater.innerHTML="Cat's Game!";
 					}
 				}
 			}
@@ -98,8 +83,8 @@ const gameFlow=(()=>{
 			[elements[2], elements[5], elements[8]],
 			[elements[0], elements[4], elements[8]],
 			[elements[2], elements[4], elements[6]]			];
-
 			checkSymbols(winningPatterns);
+
 		}
 	};
 
@@ -108,14 +93,12 @@ const gameFlow=(()=>{
 		if (el.innerHTML==""){
 			this.counter%2==0 ? gameBoard.board[index]=playerA.symbol :gameBoard.board[index]=playerB.symbol;
 		}
-
 	};
 	
 	return {
 		start,
 		increaseCounter,
-		gameLogic
-	};
+		gameLogic	};
 
 })();
 
