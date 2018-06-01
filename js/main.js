@@ -1,8 +1,20 @@
 const btn=document.getElementById("new-game");
 btn.addEventListener("click",function(){
 	window.location.reload();
-	
 });
+
+const startBtn=document.getElementById("start");
+startBtn.addEventListener("click", function(){
+	let p1name=document.getElementById("p1name").value;
+	let p2name=document.getElementById("p2name").value;
+	addPlayers(p1name, p2name);
+});
+
+const addPlayers=(p1name,p2name)=>{
+	const player1=Player("X",p1name);
+	const player2=Player("O",p2name);
+	gameFlow.start(player1, player2);
+}
 
 const gameBoard=(()=>{
 
@@ -39,7 +51,6 @@ const gameFlow=(()=>{
 					});
 				}
 		}
-
 		setCounter();
 		addClickListener();
 	};
@@ -48,10 +59,10 @@ const gameFlow=(()=>{
 			setSpaceValue(id,index,playerA, playerB);
 			increaseCounter();
 			gameBoard.render();
-			isWinner();
+			isWinner(playerA,playerB);
 	};
 
-	const isWinner=()=>{
+	const isWinner=(p1,p2)=>{
 		var winner=false;
 		if (this.counter>4){
 			var elements=[];
@@ -65,9 +76,9 @@ const gameFlow=(()=>{
 				for (let i=0;i<arr.length;i++){
 					var updater=document.getElementById("message");
 					if (allEqual(arr[i])) {
-						
 						winner=true;
-						updater.innerHTML="VICTORY for Player " + arr[i][0];
+						var name= (arr[i][0]=="X") ? p1.name: p2.name;
+						updater.innerHTML="VICTORY for Player " + name;
 					}
 					else if(winner===false && this.counter==9){
 						updater.innerHTML="Cat's Game!";
@@ -102,15 +113,11 @@ const gameFlow=(()=>{
 
 })();
 
-
-//player Object
-const Player=(symbol)=>{	
-	return {
-		symbol: symbol
-	}
+const Player=(symbol,name=symbol)=>{	
+	return {symbol: symbol, name: name}
 }
 
-const player1=Player("X");
-const player2=Player("O");
-gameFlow.start(player1, player2);
+
+
+
 
